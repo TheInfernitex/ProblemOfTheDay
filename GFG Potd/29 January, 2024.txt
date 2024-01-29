@@ -1,0 +1,61 @@
+Gfg potd: 29 January, 2024 
+Link : https://www.geeksforgeeks.org/problems/count-digit-groupings-of-a-number1520/1
+
+Code:
+class Solution
+{
+    public int TotalCount(String str)
+    {
+        int sum=0;
+        for(char ch:str.toCharArray())sum+= ch-'0';
+        
+        int memo[][]=new int[str.length()][sum+1];
+        for(int arr[] : memo) Arrays.fill(arr,-1);
+        
+        return totalC(str,0,0,memo);
+    }
+    public int totalC(String str, int i, int prevSum, int memo[][])
+    {
+        if(i == str.length()) return 1; 
+        
+        if(memo[i][prevSum] != -1) return memo[i][prevSum];
+        
+        int currSum = 0, ans = 0;
+        
+        for(int j = i;j < str.length();j++)
+        {
+            currSum+=str.charAt(j)-'0';
+            if(currSum >= prevSum) ans += totalC(str, j+1, currSum, memo);
+        }
+        return memo[i][prevSum] = ans;
+    }
+}
+
+
+Detailed Approach with the thinking process: 
+
+The description hints at recursion and the constrains all but confirm it. First, for the top-down approach we have to figure out the following:
+
+1) Parameters: Let's take the string s, current index i and the previous sum.This can be suject to change as we try to think on the next requirements.
+
+2) Base Case: It is usually the last valid input or the invalid input nearest to it. Here i will start with 0 so it will end at n-1. Out base case will therefore be i==n-1.
+What we will return here depends on what the recurion 
+
+3) What to return: Since I have to give the number of valid groupings, lets try returning just that. 
+Then the base case would be one. Since, for an input of size 1, the number of valid groupings is 1.
+
+4) How to arrive at answer of each problem using its subproblem's answer:
+Since the string to search is from current index i to the end, lets iterate(pointer:j) over its whole length and recursively call function for the subproblem of j+1 and add the number of valid substrings to a variable called ansewr. This can only be done if the current substring's sum of digits is greater than the previous sum. 
+So we need the current sum. How to get it? Just initialise a new variable before iterating over the string and keep adding the digits. for each recursive call THAT would be the new previous sum. AND we only have to call recursion IF its value exceeds the previous sum.
+
+To make it more efficient, we can momorise a particular subproblem's answer whenever we solve it for the first time. Then when it comes again in the recursion tree, we just return the stored value. This concept is memoization.
+The paramets which are subject to change are the current index and previous sum. So make a 2d array with the size = length * totalArraySum.
+Fill it with -1 which indicates the solution to all subproblems have not been found yet. 
+
+
+
+
+
+
+
+

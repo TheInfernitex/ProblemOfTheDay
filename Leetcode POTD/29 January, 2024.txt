@@ -1,0 +1,35 @@
+Leetcode potd 29 January, 2024 (current streak: 92 days)
+Link: https://leetcode.com/problems/implement-queue-using-stacks/?envType=daily-question&envId=2024-01-29
+
+Code: 
+class MyQueue {
+    Stack<Integer> q;
+    Stack<Integer> support;
+    public MyQueue() {
+        q=new Stack<>();
+        support=new Stack<>();
+    }
+    
+    public void push(int x) {
+        while(!q.isEmpty())support.push(q.pop());
+        support.push(x);
+        while(!support.isEmpty())q.push(support.pop());
+    }
+    
+    public int pop() {
+        return q.pop();
+    }
+    
+    public int peek() {
+        return q.peek();
+    }
+    
+    public boolean empty() {
+        if(q.isEmpty())return true;
+        return false;
+    }
+}
+
+
+Approach: 
+We can use two stacks to implement queue. We will make sure elements are in the order they woud be in a queue. This way the rest of the operations will remain the same and only push would require some extra work. Since we have to push at the end of the Stack-aka-Queue which isn't possible in a single stack, we can push all elements to another stack(support) and then add the element so that it is positioned at last when we put the elements back into the main stack (queue)
