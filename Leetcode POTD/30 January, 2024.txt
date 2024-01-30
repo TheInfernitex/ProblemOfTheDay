@@ -1,0 +1,38 @@
+Leetcode Potd 30th January, 2024 : https://leetcode.com/problems/evaluate-reverse-polish-notation
+
+
+Code:
+class Solution {
+    public int evalRPN(String[] tokens) {
+        Stack<Integer> stack=new Stack<>();
+        for(String s:tokens){
+            if (s.equals("+") || s.equals("-") || s.equals("*") || s.equals("/"))
+            {
+                int a=stack.pop(),b=stack.pop(),ans;
+                if(s.equals("+")) stack.add(b+a);
+                else if(s.equals("-")) stack.add(b-a);
+                else if(s.equals("*")) stack.add(b*a);
+                else if(s.equals("/")) stack.add(b/a);
+            }
+            else{
+                stack.add(Integer.parseInt(s));
+            }
+        }
+        return stack.pop();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+Approach: Operator precedence problems are usually done by stack. Why? Since only binary operators are allowed, we need only the two numbers at the nearest left of the operator and then replace the whole thing : the two numbers and the operator by the result. This can be done using stack by pushing numbers to the stack and doing the operations on the last two encountered numbers (the two numbers on top of the stack) when we encounter an operator.
+
+A good article to brush up on notations that I found on the internet: https://www.computersciencebytes.com/array-variables/reverse-polish-notation/
