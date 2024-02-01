@@ -1,0 +1,18 @@
+https://leetcode.com/problems/divide-array-into-arrays-with-max-difference/
+
+Code:
+class Solution {
+    public int[][] divideArray(int[] nums, int k) {
+        Arrays.sort(nums);
+        int ans[][]=new int[nums.length/3][3];
+        for(int i=0;i<nums.length-2;i+=3)if(nums[i+2]-nums[i]>k)return  new int[0][0];
+        for(int i=0;i<nums.length/3;i++){
+            for(int j=0;j<3;j++){
+                ans[i][j]=nums[i*3+j];
+            }
+        }
+        return ans;
+    }
+}
+
+Approach: We will sort it and group three consecutive elements together and then move on to the next group. This will ensure that if it is possible to create the array, then this will surely work(Greedy). Since we have to return an empty array if it's not possible to create such an array, we can first sort the array and check if ith element - i-2th element is greater than k for any i >1. If the difference is more than k, then we return an empty array. 
