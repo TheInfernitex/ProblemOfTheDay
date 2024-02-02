@@ -1,0 +1,27 @@
+Gfg potd 2nd February, 2024
+https://www.geeksforgeeks.org/problems/implement-atoi/1
+
+Code:
+class Solution
+{
+    int atoi(String s) {
+	// Your code here
+	    int diff=0,neg=0;
+	    for(char ch:s.toCharArray())if(ch<'0' || ch>'9')diff++;
+	    if(diff>0){
+	        if(diff>1)return -1;
+	        if(s.charAt(0)!='-')return -1;
+	    }
+	    if(s.charAt(0)=='-') {neg=1;s=s.substring(1);}
+	    int ans=0;
+	    for(int i=0;i<s.length();i++){
+	        ans*=10;
+	        ans= ans+(int)(s.charAt(i)-'0');
+	    }
+	    return neg==0?ans: -ans;
+    }
+}
+
+Approach : The question is pretty straight forward, as is the answer. All we need to do is to check if it's invalid and return -1. If its not then its either of the form -a or a. 
+Convert it into integer by taking one character at a time and changing it into integer value. Then we add it to the answer after ensuring it's placed at its correct place.
+If it was of the form -a, then we return -ans, else we return ans.
