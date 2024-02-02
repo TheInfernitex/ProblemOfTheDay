@@ -1,0 +1,21 @@
+Leetcode potd: 2nd February, 2024
+https://leetcode.com/problems/sequential-digits/
+
+Code: 
+class Solution {
+    public List<Integer> sequentialDigits(int low, int high) {
+        List<Integer> ans=new ArrayList<>();
+        String s="123456789";
+        for(int size=1;size<=9;size++){
+            for(int start=0;start<=9-size;start++){
+                int a=Integer.parseInt(s.substring(start,start+size));
+                if(a<=high && a>=low) ans.add(a);
+            }
+        }
+        return ans;
+    }
+}
+
+Approach: Since we need numbers in which  each digit in the number is one more than the previous digit,
+they can only be the substring of the following string: "123456789". Then we just have to find all the substrings of this string which when converted into integer are in the range : [low,high] 
+This could also be done using sliding window, but since the string's length is only 9, there's no need.
