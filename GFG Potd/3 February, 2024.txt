@@ -1,0 +1,22 @@
+Gfg Potd: 3rd February 2024
+https://www.geeksforgeeks.org/problems/decimal-equivalent-of-binary-linked-list/1
+
+Code:
+class Solution
+{
+   long DecimalValue(Node head)
+   {
+       long mod = (long) 1e9 + 7;
+        long decimal_value = 0;
+        
+        while(head != null){
+            decimal_value = (decimal_value * 2 + head.data) % mod;
+            head= head.next;
+        }
+        return decimal_value;
+   }
+}
+
+Approach:
+The first approach which came to my mind was to iterate over the list to find its length and then iterate again adding bits according to their place value. Then I realised these are just bits. There is no need to find out the length in advance if we can easily make space for the next bit by simply left-shifting.
+The %mod ensures that the answer does not get too large.
