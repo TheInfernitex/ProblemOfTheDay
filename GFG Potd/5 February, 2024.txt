@@ -1,0 +1,48 @@
+Gfg Potd: 5 February 2024
+https://www.geeksforgeeks.org/problems/sorted-insert-for-circular-linked-list
+
+This task can be done by traversing the list till the node where the next node has bigger value and insert it after the node.
+O(n) Time complexity.
+Code:
+class Solution {
+    public Node sortedInsert(Node head, int data) {
+        // code here
+        if(head == null){
+            return new Node(data);
+        }
+        else if(head.data > data){ //if we need to insert it as the first node
+            Node first = head ;
+            while(head.next != first){
+                head = head.next ;
+            }
+            head.next = new Node(data);
+            head = head.next;
+            head.next = first ;
+            return head ;
+        }
+        else{ //somewhere in between
+            Node first = head;
+            Node previous = first;
+            first = first.next;
+            
+            while(first != head){
+                if(first.data >= data){
+                    previous.next = new Node(data);
+                    previous = previous.next;
+                    previous.next = first ;
+                    return head;
+                }
+                else{
+                    previous = first;
+                    first = first.next;
+                }
+            }
+            previous.next = new Node(data);
+            previous = previous.next;
+            previous.next = head ;
+            return head ;
+        }
+    }
+}
+
+
