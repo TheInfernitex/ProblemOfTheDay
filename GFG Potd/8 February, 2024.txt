@@ -1,0 +1,18 @@
+Gfg Potd : https://www.geeksforgeeks.org/problems/leaf-at-same-level/1
+
+Code:
+class Solution
+{
+    boolean check(Node root)
+    {
+	// Your code here	
+	    HashSet<Integer> levels=new HashSet<Integer>();
+	    add(levels,root,0);
+	    return levels.size()==1;
+    }
+    void add(HashSet<Integer> levels,Node root,int level){
+        if(root==null)return;
+        if(root.left==null && root.right==null)levels.add(level);
+        add(levels,root.left,level+1);add(levels,root.right,level+1);
+    }
+}

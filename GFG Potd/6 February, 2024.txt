@@ -1,0 +1,40 @@
+GFG Potd 6 February, 2024
+https://www.geeksforgeeks.org/problems/min-distance-between-two-given-nodes-of-a-binary-tree/1
+
+
+Code: 
+
+class GfG {
+    int findDist(Node root, int a, int b) {
+        // Your code here
+        if(root == null){
+            return 0;
+        }
+        
+        Node temp = lowestCommonAncestor(root, a, b);
+        return height(temp, a, 0) + height(temp, b, 0);
+    }
+    
+    Node lowestCommonAncestor(Node node, int a, int b){
+    
+        if(node==null || node.data==a || node.data==b ) return node;
+        
+        Node left = lowestCommonAncestor(node.left,a,b);
+        Node right = lowestCommonAncestor(node.right,a,b);
+        
+        if(left==null) return right;
+        else if(right==null) return left;
+        return node;
+    }
+
+    int height(Node temp, int a, int depth){
+        
+        if(temp==null) return 0;
+        if(temp.data == a) return depth;
+        
+        int x=height(temp.left, a, depth+1);
+        int y=height(temp.right, a, depth+1);
+        
+        return x==0 ? y:x;  
+    }
+}
