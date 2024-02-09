@@ -1,6 +1,6 @@
 Welcome to my coding practice repository! 
 
-Here, I regularly post solutions to the "Problem of the Day" from LeetCode and GeeksforGeeks. (IN JAVA)
+Here, I regularly post solutions to the "Problem of the Day" from LeetCode and GeeksforGeeks. ****(IN JAVA)****
 This repository serves as a record of my progress, a platform for explanation, and an opportunity to receive feedback on my coding style and problem-solving skills.
 
 ****Structure:****
