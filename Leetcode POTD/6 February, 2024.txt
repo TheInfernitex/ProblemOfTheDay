@@ -1,0 +1,45 @@
+Leetcode Potd 6 February, 2024
+https://leetcode.com/problems/group-anagrams
+
+
+Code: 
+
+class Solution {
+    
+    private List<List<String>> result;
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+        return new AbstractList<List<String>>() {
+
+            public List<String> get(int index) {
+                if (result == null)
+                    init();
+                return result.get(index);
+            }
+
+            public int size() {
+                if (result == null)
+                    init();
+                return result.size();
+            }
+
+            private void init() {
+                for (String s : strs) {
+                    char[] count = new char[26];
+
+                    for (char c : s.toCharArray())
+                        count[c - 'a']++;
+                    String key = String.valueOf(count);
+
+                    if (!map.containsKey(key))
+                        map.put(key, new ArrayList<String>());
+
+                    map.get(key).add(s);
+                }
+
+                result = new ArrayList<>(map.values());
+            }
+        };
+    }
+}

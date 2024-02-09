@@ -1,0 +1,19 @@
+Leetcode POTD: https://leetcode.com/problems/perfect-squares/description/
+
+Code:
+class Solution {
+    public int numSquares(int n) {
+        int memo[]=new int[n+1];
+        Arrays.fill(memo,-1);
+        return numSq(n,memo);
+    }
+    public int numSq(int n,int[] memo){
+        if(n==0) return 0;
+        if(memo[n]!=-1)return memo[n];
+        int min=Integer.MAX_VALUE;
+        for(int i=1;i*i<=n;i++){
+            min=Math.min(min,1+numSq(n-i*i,memo));
+        }
+        return memo[n]=min;
+    }
+}

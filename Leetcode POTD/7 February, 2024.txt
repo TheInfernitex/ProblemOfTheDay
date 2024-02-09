@@ -1,0 +1,24 @@
+Leetcode Potd: 7 February, 2024
+https://leetcode.com/problems/sort-characters-by-frequency/description/?envType=daily-question&envId=2024-02-07
+
+Code :
+class Solution{
+    
+    public String frequencySort(String s) {
+    char[] c = s.toCharArray();
+    HashMap<Character, Integer> map = new HashMap<>();
+    for (char ch : c) map.put(ch, map.getOrDefault(ch, 0) + 1);
+    List<Map.Entry<Character, Integer>> list = new ArrayList<>(map.entrySet());
+    list.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+    
+    StringBuilder ans = new StringBuilder();
+    for (Map.Entry<Character, Integer> entry : list) 
+    {
+        char ch = entry.getKey();
+        int frequency = entry.getValue();
+        for (int i = 0; i < frequency; i++) ans.append(ch);
+    }
+
+    return ans.toString();
+    }
+}
