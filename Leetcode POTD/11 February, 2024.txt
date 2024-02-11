@@ -1,0 +1,46 @@
+Leetcode POTD link : https://leetcode.com/problems/cherry-pickup-ii/
+
+Code:
+class Solution {
+    Integer[][][][] memo;
+    public int cherryPickup(int[][] grid) {
+        int n=grid.length,m=grid[0].length;
+        memo=new Integer[n][m][n][m];
+        int ans = cherryPickup(grid,0,0,0,grid[0].length-1);
+        return Math.max(0,ans);
+    }
+    public int cherryPickup(int[][] grid,int r1,int c1,int r2,int c2) {
+        if(c1<0 || c1>=grid[0].length || c2<0 || c2>=grid[0].length ){
+            return Integer.MIN_VALUE;
+        }
+        if(r1==grid.length-1 && r2==grid.length-1){
+            if(c1!=c2)
+             return grid[r1][c1]+grid[r2][c2];
+             else return grid[r1][c1];
+        }
+        if(memo[r1][c1][r2][c2]!=null){
+            return memo[r1][c1][r2][c2];
+        }
+        int cherry=0;
+        if(r1==r2 && c1==c2){
+            cherry+=grid[r1][c1];
+        }
+        else{
+            cherry+=grid[r1][c1]+grid[r2][c2];
+        }
+        int a=cherryPickup(grid,r1+1,c1,r2+1,c2);
+        int b=cherryPickup(grid,r1+1,c1,r2+1,c2+1);
+        int c=cherryPickup(grid,r1+1,c1,r2+1,c2-1);
+        int d=cherryPickup(grid,r1+1,c1+1,r2+1,c2);
+        int e=cherryPickup(grid,r1+1,c1+1,r2+1,c2+1);
+        int f=cherryPickup(grid,r1+1,c1+1,r2+1,c2-1);
+        int g=cherryPickup(grid,r1+1,c1-1,r2+1,c2);
+        int h=cherryPickup(grid,r1+1,c1-1,r2+1,c2+1);
+        int i=cherryPickup(grid,r1+1,c1-1,r2+1,c2-1);
+
+        cherry += Math.max( Math.max( Math.max(  Math.max(  a, b ),c ), Math.max(d, e) ), Math.max( Math.max(  f, g ), Math.max( h, i ) ) );
+        return memo[r1][c1][r2][c2] = cherry;
+    }    
+}
+
+Approach: It is straightforward. If there are two robots and each have three choices, then in total we have 3*3=9 choices we have to call recursively and return the one which gives the most cherries. If it gets out of bounds, we return a very small negative value so that we do not consider that path. Since there are two robots, each with their own indeces - row & column, that leaves 4 parameters which are subject to change. Thus, make a 4d array to memoize the answers and BAM! We have solved another hard question!
