@@ -1,0 +1,22 @@
+Gfg POTD link : https://www.geeksforgeeks.org/problems/recamans-sequence4856/1
+
+Code: 
+
+class Solution
+{
+    static ArrayList<Integer> recamanSequence(int n)
+    {
+        ArrayList<Integer> result = new ArrayList<>(); result.add(0);
+        HashSet<Integer> added = new HashSet<>(); added.add(0);
+        
+        for(int i = 1; i < n; i++){
+            int toAdd = result.get(i-1) - i;
+            if(toAdd >= 0 && !added.contains(toAdd)) { result.add(toAdd); added.add(toAdd);}
+            else { result.add(toAdd + 2 * i); added.add(toAdd + 2 * i);}
+        }
+      
+        return result;
+    }
+}
+
+Explanation: Just use a HashSet to check if the number has already been added and use the given formula to calculate what to place.

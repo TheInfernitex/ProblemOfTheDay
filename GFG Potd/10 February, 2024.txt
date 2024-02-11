@@ -1,0 +1,31 @@
+Gfg POTD link: 
+
+Recursive(Memoized) Code: https://www.geeksforgeeks.org/problems/number-of-paths-in-a-matrix-with-k-coins2728/1
+long numberOfPath(int n, int k, int [][]arr) {
+        
+        long dp[][][] = new long[n][n][k+1];
+        for(long[][] row1 : dp){
+            for(long[] row : row1){
+                Arrays.fill(row , -1);
+            }
+        }
+        
+        return solve(n-1 , n-1 , k , arr , dp);
+    }
+    long solve(int i, int j, int k ,  int [][]arr , long dp[][][])
+    {
+        if(i < 0 || j < 0 || k < 0) return 0;
+        if(i == 0 && j == 0 ) {
+            if(k == arr[i][j]) return 1;
+            else return 0;
+        }
+        
+        if(dp[i][j][k] != -1) return dp[i][j][k];
+        
+        long right = solve(i , j - 1 , k - arr[i][j] , arr , dp);
+        long bottom = solve(i - 1 , j , k - arr[i][j] , arr , dp);
+        
+        return dp[i][j][k] = right + bottom;
+    }
+}
+Approach: at each step we have two choices, take both recursively. We will keep subtracting current place's value from k so that if at last it is equal to the last cell, then we have a path : return 1 else we return 0. If we are not at the last cell, then we will calculate the number of paths if we go to right and add it to the paths from bottom and return it. Throughout this processs, only parameters : i, j, k or the indeces will be varible so memoize the answers in a 3d array. 
