@@ -1,0 +1,17 @@
+Gfg potd: https://www.geeksforgeeks.org/problems/recursive-sequence1611/1
+
+Code:
+class Solution{
+    static long sequence(int n){
+        // code here
+        int num=1;
+        long ans=0;
+        for(int i=1;i<=n;i++)
+        {
+            long product=1;
+            for(int j=1;j<=i;j++)product = (product*num++)%1000000007;
+            ans= (ans+product)%1000000007;
+        }
+        return ans;
+    }
+}
