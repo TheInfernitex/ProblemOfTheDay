@@ -1,0 +1,21 @@
+Gfg Potd: https://www.geeksforgeeks.org/problems/clone-graph/1
+
+Code: 
+class Solution{
+    Node cloneGraph(Node node){
+        HashSet<Node> visited=new HashSet<>();
+        return cloneG(node, visited);
+    }
+    
+    Node cloneG(Node node, HashSet<Node> visited){
+        Node nodec=new Node(node.val);
+        visited.add(node);
+        for(Node n: node.neighbors){
+            if(!visited.contains(n))
+            nodec.neighbors.add(cloneG(n, visited));
+        }
+        
+        return nodec;
+    }
+}
+
