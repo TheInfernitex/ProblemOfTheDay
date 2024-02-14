@@ -1,0 +1,22 @@
+Leetcode POTD: https://leetcode.com/problems/rearrange-array-elements-by-sign/description/
+
+Code:
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+        int n=nums.length;
+        int res[]= new int[n];
+        int posindex=0;int negindex=1;
+        for(int i=0;i<n;i++){
+            if(nums[i]>0){
+                res[posindex]=nums[i];
+                posindex +=2;
+            }else{
+                res[negindex]=nums[i];
+                negindex +=2;
+            }
+        }
+        return res;
+    }
+}
+
+Approach: Since we have to start with positive number, then we can solve this using two pointers. As we encounter any pos/neg number then we add it to the pos/neg pointer index and update the pointer by 2. This way, the order is preserved. 
