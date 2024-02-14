@@ -1,0 +1,83 @@
+Gfg POTD: https://www.geeksforgeeks.org/problems/critical-connections/1
+
+Code:
+class Solution {
+    public void dfs(int node, boolean[] visited, HashSet<Integer>[] adj) {
+        visited[node] = true;
+
+        for (int it : adj[node]) {
+            if (!visited[it]) {
+                dfs(it, visited, adj);
+            }
+        }
+    }
+
+    public ArrayList<ArrayList<Integer>> criticalConnections(int V, ArrayList<ArrayList<Integer>> adj) {
+        HashSet<Integer>[] adj1 = new HashSet[V];
+
+        for (int i = 0; i < V; i++) {
+            adj1[i] = new HashSet<>();
+        }
+
+        ArrayList<ArrayList<Integer>> edges = new ArrayList<>();
+
+        for (int i = 0; i < V; i++) {
+            for (int it : adj.get(i)) {
+                edges.add(new ArrayList<>(Arrays.asList(i, it)));
+            }
+        }
+
+        edges.sort((a, b) -> {
+            if (a.get(0).equals(b.get(0))) {
+                return a.get(1) - b.get(1);
+            }
+            return a.get(0) - b.get(0);
+        });
+
+        for (int i = 0; i < edges.size(); i++) {
+            adj1[edges.get(i).get(0)].add(edges.get(i).get(1));
+            adj1[edges.get(i).get(1)].add(edges.get(i).get(0));
+        }
+
+        HashSet<ArrayList<Integer>> ans = new HashSet<>();
+
+        for (int i = 0; i < edges.size(); i++) {
+            adj1[edges.get(i).get(0)].remove(edges.get(i).get(1));
+            adj1[edges.get(i).get(1)].remove(edges.get(i).get(0));
+
+            boolean[] visited = new boolean[V];
+            dfs(0, visited, adj1);
+
+            boolean flag = false;
+
+            for (int j = 1; j < V; j++) {
+                if (!visited[j]) {
+                    flag = true;
+                    break;
+                }
+            }
+
+            if (flag) {
+                ans.add(new ArrayList<>(Arrays.asList(
+                        Math.min(edges.get(i).get(0), edges.get(i).get(1)),
+                        Math.max(edges.get(i).get(0), edges.get(i).get(1)))));
+            }
+
+            adj1[edges.get(i).get(0)].add(edges.get(i).get(1));
+            adj1[edges.get(i).get(1)].add(edges.get(i).get(0));
+        }
+
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>(ans);
+
+        res.sort((a, b) -> {
+            if (a.get(0).equals(b.get(0))) {
+                return a.get(1) - b.get(1);
+            }
+            return a.get(0) - b.get(0);
+        });
+
+        return res;
+    }
+}
+
+Approach: Find Strongly connected components using Tarjan's algorithm and identify the bridges. Sort them as asked and return.
