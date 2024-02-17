@@ -1,0 +1,19 @@
+Gfg POTD: https://www.geeksforgeeks.org/problems/castle-run3644/
+
+
+Code:
+
+class Solution
+{
+    public int isPossible(int[][] paths)
+    {
+        for(int arr[]:paths)
+        {
+            int sum=0;
+            for(int i:arr)sum+=i;
+            if((sum&1)==1)return 0; 
+//if any node is connected to an odd number of nodes, then is it impossible to traverse as stated in the question
+        }
+        return 1;
+    }
+}
