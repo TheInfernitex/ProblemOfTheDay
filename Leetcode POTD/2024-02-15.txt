@@ -1,0 +1,16 @@
+Leetcode POTD: https://leetcode.com/problems/find-polygon-with-the-largest-perimeter/description/?envType=daily-question&envId=2024-02-15
+
+Code:
+class Solution {
+    public long largestPerimeter(int[] nums) {
+        Arrays.sort(nums);
+        long peri=0;for(int i:nums)peri+=i;
+        for(int i=nums.length-1;i>=2;i--)
+        {
+	    //start from the largest side and keep removing untill there is no need.
+            if(2*nums[i]>=peri){peri-=nums[i];}
+            else return peri;
+        }
+        return -1;
+    }
+}

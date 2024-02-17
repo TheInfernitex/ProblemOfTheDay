@@ -1,0 +1,23 @@
+Leetcode POTD: https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/
+
+Code: 
+//to get the least number of unique integers, we will start removing the numbers with the lowest frequencies. So just find the frequencies, sotre them in an array, sort and apply.
+class Solution {
+    public int findLeastNumOfUniqueInts(int[] arr, int k) 
+    {
+        HashMap<Integer,Integer> map = new HashMap<Integer, Integer>();
+        for (int n : arr) map.put(n, map.getOrDefault(n, 0) + 1);
+
+        int sortedFreq[] = new int[map.size()], i = 0;
+
+        for (int freq : map.values())sortedFreq[i++] = freq;
+        Arrays.sort(sortedFreq);
+
+        for(i=0; i < sortedFreq.length; i++) 
+        {
+            if (k < sortedFreq[i]) break;
+            k -= sortedFreq[i];
+        }
+        return sortedFreq.length - i;
+    }
+}
