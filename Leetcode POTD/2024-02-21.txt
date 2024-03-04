@@ -1,0 +1,15 @@
+Leetcode POTD: https://leetcode.com/problems/bitwise-and-of-numbers-range/
+
+Code:
+//find common longest common prefix in binary
+class Solution {
+    public int rangeBitwiseAnd(int left, int right) {
+        int cnt = 0;
+        while (left != right) {
+            left >>= 1;
+            right >>= 1;
+            cnt++;
+        }
+        return (left << cnt);
+    }
+}

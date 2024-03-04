@@ -1,0 +1,9 @@
+Leetcode POTD: https://leetcode.com/problems/power-of-two/submissions/
+
+Code:
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        return (n>0 && (n&(n-1))==0);
+    }
+}
+explanation: if a number is a power of 2, then it has a single set bit in binary representations. number-1 will have all the bits before the original set bit, set. Thus on logical AND with the number just lesser, a number which is power of 2 gives 0. Negative numbers are not power of two. 

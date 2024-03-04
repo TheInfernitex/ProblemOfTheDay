@@ -1,0 +1,26 @@
+Leetcode link: https://leetcode.com/problems/bag-of-tokens/description/?envType=daily-question&envId=2024-03-04
+
+Code:
+class Solution {
+    public int bagOfTokensScore(int[] tokens, int power) {
+        
+        Arrays.sort(tokens);
+        if(tokens.length==0 || tokens[0]>power)return 0;
+        int score=0,i=0,j=tokens.length-1;
+        int ans=0;
+        while(i<tokens.length && i<=j)
+        {
+            while(i<tokens.length && tokens[i]<=power){power-=tokens[i];i++;score++;ans=Math.max(score,ans);}
+            if(i==tokens.length)break;
+            if(score>0)
+            {
+                power+=tokens[j];j--;
+                score--;
+            }
+        }
+        return ans;
+    }
+}
+
+"Buy" as many points (score) as you can with the power you have (starting with the least expensive tokens).
+Once you run out of power (unless there is only one token left, then you should exit the game), "sell" one point (score) in exchange for the token with the most power.

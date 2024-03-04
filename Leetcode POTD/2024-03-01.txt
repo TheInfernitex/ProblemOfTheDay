@@ -1,0 +1,14 @@
+Leetcode link: https://leetcode.com/problems/maximum-odd-binary-number/
+
+Code:
+class Solution {
+    public String maximumOddBinaryNumber(String s) {
+        int ones=0,zeroes=0;
+        String ans="";
+        for(char ch:s.toCharArray())if(ch=='1')ones++;else zeroes++;
+        while(ones>1){ans+='1';ones--;}
+        while(zeroes>0){ans+='0';zeroes--;}
+        ans+='1';
+        return ans;
+    }
+}

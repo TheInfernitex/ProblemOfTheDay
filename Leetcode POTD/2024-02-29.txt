@@ -1,0 +1,51 @@
+Leetcode POTD: https://leetcode.com/problems/even-odd-tree/description/?envType=daily-question&envId=2024-02-29
+
+Code:
+class Solution {
+    public boolean isEvenOddTree(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+
+        Queue<TreeNode> bfs = new LinkedList<>();
+        bfs.add(root);
+        int level = 0;
+
+        while (!bfs.isEmpty()) {
+            int size = bfs.size();
+            int prevValue = (level % 2 == 0) ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+
+            for (int i = 0; i < size; i++) {
+                TreeNode curr = bfs.poll();
+
+                // Check even level
+                if (level % 2 == 0) {
+                    if (curr.val % 2 == 0 || curr.val <= prevValue) {
+                        return false;
+                    }
+                }
+                // Check odd level
+                else {
+                    if (curr.val % 2 != 0 || curr.val >= prevValue) {
+                        return false;
+                    }
+                }
+
+                if (curr.left != null) {
+                    bfs.add(curr.left);
+                }
+                if (curr.right != null) {
+                    bfs.add(curr.right);
+                }
+
+                prevValue = curr.val;
+            }
+
+            level++;
+        }
+
+        return true;
+    }
+}
+
+Approach: We have to check if the elements follow the given conditions which are based on their level. So we traverse using BFS to have the level of the element and apply the conditions accordingly.

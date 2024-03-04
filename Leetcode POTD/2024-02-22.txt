@@ -1,0 +1,26 @@
+Leetcode POTD: https://leetcode.com/problems/find-the-town-judge/description/?envType=daily-question&envId=2024-02-22
+
+Code: class Solution {
+    public int findJudge(int n, int[][] trust) 
+    {
+        int[] count = new int[n+1];
+        int judge = -1;
+
+        for(int[] t : trust){
+            count[t[1]]++;
+        }
+
+        for(int i=1;i<n+1;i++){
+            if(count[i]==n-1){
+                judge=i;
+            }
+        }
+
+        for(int[] t : trust){
+            if(t[0]==judge){
+                return -1;
+            }
+        }
+        return judge;
+    }
+}

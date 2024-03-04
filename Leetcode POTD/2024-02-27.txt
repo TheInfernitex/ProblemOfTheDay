@@ -1,0 +1,21 @@
+Leetcode POTD: https://leetcode.com/problems/diameter-of-binary-tree/description/?envType=daily-question&envId=2024-02-27
+
+Code:
+class Solution {
+    int result = -1;
+    public int diameterOfBinaryTree(TreeNode root) {
+        dfs(root);
+        return result;
+    }
+    private int dfs(TreeNode current) {
+        if (current == null) {
+            return -1;
+        }
+        int left = 1 + dfs(current.left);
+        int right = 1 + dfs(current.right);
+        result = Math.max(result, (left + right));
+        return Math.max(left, right);
+    }
+}
+
+//For each node, calculate the longest path which goes through the node. It will be longest path to the left + Longest path to right + 1(for the node) and store the max in a global variable.
