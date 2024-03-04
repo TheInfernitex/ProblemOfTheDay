@@ -1,0 +1,16 @@
+Gfg POTD: https://www.geeksforgeeks.org/problems/check-if-a-number-is-divisible-by-83957/1
+
+Code:
+class Solution{
+    int DivisibleByEight(String s){
+        //code here
+        int base = 1, ans = 0;
+        for(int i=s.length()-1; i>=0 && i>=(s.length()-3); i--)
+        {
+            ans = ans + (Integer.parseInt(String.valueOf(s.charAt(i))) * base);
+            base = base * 10;
+        }
+        return (ans%8==0) ? 1 : -1;
+    }
+}
+//convert the number from string to an integer and then use % to check if it's divisible by 8.

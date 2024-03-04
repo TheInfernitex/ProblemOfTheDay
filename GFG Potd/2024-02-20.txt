@@ -1,0 +1,30 @@
+Gfg Potd: https://www.geeksforgeeks.org/problems/word-break1352/1
+
+Code:
+class Solution
+{
+    public static int wordBreak(int n, String s, ArrayList<String> dictionary )
+    {
+        //code here
+        TreeSet<String> mp = new TreeSet<>();
+        for(int i =0; i<n; i++){
+            mp.add(dictionary.get(i));
+        }
+        ArrayList<Boolean> chake = new ArrayList<>();
+        int len = s.length();
+        for(int i =0; i<len; i++){
+            chake.add(false);
+        }
+        chake.add(0,true);
+        for(int i =1; i<=len; i++){
+            for(int j=0; j<len; j++){
+                if( chake.get(j)&&mp.contains(s.substring(j,i)) ){
+                    chake.add(i,true);
+                    break;
+                }
+            }
+        }
+        if(chake.get(len)) return 1;
+        return 0;
+    }
+}

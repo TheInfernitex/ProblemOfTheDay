@@ -1,0 +1,24 @@
+GFG POTD: https://www.geeksforgeeks.org/problems/power-set4302/1
+
+Code:
+//Recursively add the subsequences in a list by using the pick/not-pick method for each element. Then sort the list.
+class Solution
+{
+    public List<String> AllPossibleStrings(String s)
+    {
+        // Code here
+        List<String> ans=new ArrayList<>();
+        formSubseq(s,0,"",ans);
+        Collections.sort(ans,(a,b)->a.compareTo(b));
+        return ans;
+    }
+    public void formSubseq(String s, int i, String sub, List<String> ans){
+        if(i==s.length()){
+            if(sub.length()==0)return;
+            ans.add(sub);
+            return;
+        }
+        formSubseq(s,i+1,sub+s.charAt(i),ans);
+        formSubseq(s,i+1,sub,ans);
+    }
+}

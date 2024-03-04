@@ -1,0 +1,22 @@
+Gfg POTD: https://www.geeksforgeeks.org/problems/reach-a-given-score-1587115621/1
+
+Code:
+//Simple Dynamic Programming solution:
+class Geeks {
+    public long count(int n) {
+        // Add your code here.
+        long ans[]=new long[n+1];
+        ans[0]=1;
+        for(int i =3;i<=n;i++){
+            ans[i]+=ans[i-3];
+        }
+        for(int i =5;i<=n;i++){
+            ans[i]+=ans[i-5];
+        }
+        for(int i =10;i<=n;i++){
+            ans[i]+=ans[i-10];
+        }
+        
+        return ans[n];
+    }
+}

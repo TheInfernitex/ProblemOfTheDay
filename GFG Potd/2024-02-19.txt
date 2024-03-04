@@ -1,0 +1,24 @@
+Gfg Potd: https://www.geeksforgeeks.org/problems/game-with-string4100/1
+
+Code:
+class Solution{
+    static int minValue(String s, int k){
+        // code here
+        HashMap<Character,Integer> map=new HashMap<>();
+        for(char ch:s.toCharArray())map.put(ch,map.getOrDefault(ch,0)+1);
+        PriorityQueue<Integer> pq=new PriorityQueue<>(Collections.reverseOrder());
+        for(int i:map.values())pq.add(i);
+        while(k>0){ // reduce the largest frequency by one until k becomes 0.
+            int t=pq.poll();
+            if(t>0) t--;
+            pq.add(t);
+            k--;
+        }
+        int ans=0;
+        while(!pq.isEmpty()){
+            int t=pq.poll();
+            ans += t*t;
+        }
+        return ans;
+    }
+}

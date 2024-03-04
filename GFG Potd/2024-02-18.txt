@@ -1,0 +1,12 @@
+Gfg POTD: https://www.geeksforgeeks.org/problems/sum-of-leaf-nodes-in-bst/1
+
+Code:
+class Solution
+{
+    public static int sumOfLeafNodes(Node root)
+    {
+        if(root == null)return 0;
+        if(root.left == null && root.right== null)return root.data;	//leaf node
+        return sumOfLeafNodes(root.left)+sumOfLeafNodes(root.right);
+    }
+}
